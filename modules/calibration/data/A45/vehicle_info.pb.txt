@@ -1,0 +1,6 @@
+name : "A45"
+brand : A45
+model : A45
+license {
+    vin : "a450746"
+}

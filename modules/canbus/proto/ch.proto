@@ -1,0 +1,415 @@
+syntax = "proto2";
+
+package apollo.canbus;
+
+// Coolhigh vehicle starts from here
+message Control_command_115 {
+// Control Message
+  enum Ctrl_cmdType {
+    CTRL_CMD_OUT_OF_CONTROL = 0;
+    CTRL_CMD_UNDER_CONTROL = 1;
+  }
+  // Take control(Command) [] [0|1]
+  optional Ctrl_cmdType ctrl_cmd = 1;
+}
+
+message Gear_command_114 {
+// Control Message
+  enum Gear_cmdType {
+    GEAR_CMD_PARK = 1;
+    GEAR_CMD_REVERSE = 2;
+    GEAR_CMD_NEUTRAL = 3;
+    GEAR_CMD_DRIVE = 4;
+  }
+  // PRND control(Command) [] [1|4]
+  optional Gear_cmdType gear_cmd = 1;
+}
+
+message Brake_command_111 {
+// Control Message
+  enum Brake_pedal_en_ctrlType {
+    BRAKE_PEDAL_EN_CTRL_DISABLE = 0;
+    BRAKE_PEDAL_EN_CTRL_ENABLE = 1;
+  }
+  // brake pedal enable bit(Command) [] [0|1]
+  optional Brake_pedal_en_ctrlType brake_pedal_en_ctrl = 1;
+  // Percentage of brake pedal(Command) [%] [0|100]
+  optional int32 brake_pedal_cmd = 2;
+}
+
+message Throttle_command_110 {
+// Control Message
+  enum Throttle_pedal_en_ctrlType {
+    THROTTLE_PEDAL_EN_CTRL_DISABLE = 0;
+    THROTTLE_PEDAL_EN_CTRL_ENABLE = 1;
+  }
+  // throttle pedal enable bit(Command) [] [0|1]
+  optional Throttle_pedal_en_ctrlType throttle_pedal_en_ctrl = 1;
+  // Percentage of throttle pedal(Command) [%] [0|100]
+  optional int32 throttle_pedal_cmd = 2;
+}
+
+message Turnsignal_command_113 {
+// Control Message
+  enum Turn_signal_cmdType {
+    TURN_SIGNAL_CMD_NONE = 0;
+    TURN_SIGNAL_CMD_LEFT = 1;
+    TURN_SIGNAL_CMD_RIGHT = 2;
+  }
+  // Lighting control(Command) [] [0|2]
+  optional Turn_signal_cmdType turn_signal_cmd = 1;
+}
+
+message Steer_command_112 {
+// Control Message
+  enum Steer_angle_en_ctrlType {
+    STEER_ANGLE_EN_CTRL_DISABLE = 0;
+    STEER_ANGLE_EN_CTRL_ENABLE = 1;
+  }
+  // steering angle enable bit(Command) [] [0|1]
+  optional Steer_angle_en_ctrlType steer_angle_en_ctrl = 1;
+  // Current steering angle(Command) [radian] [-0.524|0.524]
+  optional double steer_angle_cmd = 2;
+}
+
+message Brake_status__511 {
+// Report Message
+  enum Brake_pedal_en_stsType {
+    BRAKE_PEDAL_EN_STS_DISABLE = 0;
+    BRAKE_PEDAL_EN_STS_ENABLE = 1;
+    BRAKE_PEDAL_EN_STS_TAKEOVER = 2;
+  }
+  enum Brake_errType {
+    BRAKE_ERR_NOERR = 0;
+    BRAKE_ERR_BRAKE_SYSTEM_ERR = 1;
+  }
+  enum Emergency_btn_envType {
+    EMERGENCY_BTN_ENV_NOENV = 0;
+    EMERGENCY_BTN_ENV_EMERGENCY_BUTTON_ENV = 1;
+  }
+  enum Front_bump_envType {
+    FRONT_BUMP_ENV_NOENV = 0;
+    FRONT_BUMP_ENV_FRONT_BUMPER_ENV = 1;
+  }
+  enum Back_bump_envType {
+    BACK_BUMP_ENV_NOENV = 0;
+    BACK_BUMP_ENV_BACK_BUMPER_ENV = 1;
+  }
+  enum Overspd_envType {
+    OVERSPD_ENV_NOENV = 0;
+    OVERSPD_ENV_OVERSPEED_ENV = 1;
+  }
+  // brake pedal enable bit(Status) [] [0|1]
+  optional Brake_pedal_en_stsType brake_pedal_en_sts = 1;
+  // Percentage of brake pedal(Status) [%] [0|100]
+  optional int32 brake_pedal_sts = 2;
+  // [] [0|1]
+  optional Brake_errType brake_err = 3;
+  // [] [0|1]
+  optional Emergency_btn_envType emergency_btn_env = 4;
+  // [] [0|1]
+  optional Front_bump_envType front_bump_env = 5;
+  // [] [0|1]
+  optional Back_bump_envType back_bump_env = 6;
+  // [] [0|1]
+  optional Overspd_envType overspd_env = 7;
+}
+
+message Throttle_status__510 {
+// Report Message
+  enum Throttle_pedal_en_stsType {
+    THROTTLE_PEDAL_EN_STS_DISABLE = 0;
+    THROTTLE_PEDAL_EN_STS_ENABLE = 1;
+    THROTTLE_PEDAL_EN_STS_TAKEOVER = 2;
+  }
+  enum Drive_motor_errType {
+    DRIVE_MOTOR_ERR_NOERR = 0;
+    DRIVE_MOTOR_ERR_DRV_MOTOR_ERR = 1;
+  }
+  enum Battery_bms_errType {
+    BATTERY_BMS_ERR_NOERR = 0;
+    BATTERY_BMS_ERR_BATTERY_ERR = 1;
+  }
+  // throttle pedal enable bit(Status) [] [0|1]
+  optional Throttle_pedal_en_stsType throttle_pedal_en_sts = 1;
+  // Percentage of throttle pedal(Status) [%] [0|100]
+  optional int32 throttle_pedal_sts = 2;
+  // [] [0|1]
+  optional Drive_motor_errType drive_motor_err = 3;
+  // [] [0|1]
+  optional Battery_bms_errType battery_bms_err = 4;
+}
+
+message Turnsignal_status__513 {
+// Report Message
+  enum Turn_signal_stsType {
+    TURN_SIGNAL_STS_NONE = 0;
+    TURN_SIGNAL_STS_LEFT = 1;
+    TURN_SIGNAL_STS_RIGHT = 2;
+  }
+  // Lighting control(Status) [] [0|2]
+  optional Turn_signal_stsType turn_signal_sts = 1;
+}
+
+message Steer_status__512 {
+// Report Message
+  enum Steer_angle_en_stsType {
+    STEER_ANGLE_EN_STS_DISABLE = 0;
+    STEER_ANGLE_EN_STS_ENABLE = 1;
+    STEER_ANGLE_EN_STS_TAKEOVER = 2;
+  }
+  enum Steer_errType {
+    STEER_ERR_NOERR = 0;
+    STEER_ERR_STEER_MOTOR_ERR = 1;
+  }
+  enum Sensor_errType {
+    SENSOR_ERR_NOERR = 0;
+    SENSOR_ERR_STEER_SENSOR_ERR = 1;
+  }
+  // steering angle enable bit(Status) [] [0|1]
+  optional Steer_angle_en_stsType steer_angle_en_sts = 1;
+  // Current steering angle(Status) [radian] [-0.524|0.524]
+  optional double steer_angle_sts = 2;
+  // [] [0|1]
+  optional Steer_errType steer_err = 3;
+  // [] [0|1]
+  optional Sensor_errType sensor_err = 4;
+}
+
+message Ecu_status_1_515 {
+// Report Message
+  enum Ctrl_stsType {
+    CTRL_STS_OUT_OF_CONTROL = 0;
+    CTRL_STS_UNDER_CONTROL = 1;
+  }
+  // Current speed (Steering status) [m/s] [0|0]
+  optional double speed = 1;
+  // Current acceleration (Steering status) [m/s^2] [0|0]
+  optional double acc_speed = 2;
+  // Current Auto-mode state (Chassis status) [] [0|1]
+  optional Ctrl_stsType ctrl_sts = 3;
+  // Current chassis state (Chassis status) [] [0|255]
+  optional int32 chassis_sts = 4;
+  // Chassis error code (Chassis status) [] [0|65535]
+  optional int32 chassis_err = 5;
+}
+
+message Gear_status_514 {
+// Report Message
+  enum Gear_stsType {
+    GEAR_STS_PARK = 1;
+    GEAR_STS_REVERSE = 2;
+    GEAR_STS_NEUTRAL = 3;
+    GEAR_STS_DRIVE = 4;
+  }
+  // PRND control(Status) [] [1|4]
+  optional Gear_stsType gear_sts = 1;
+}
+
+message Ecu_status_3_517 {
+// Report Message
+  // Ultrasonic detection distance 1 (Ultrasound status) [cm] [0|0]
+  optional int32 ultrasound_dist_1 = 1;
+  // Ultrasonic detection distance 2 (Ultrasound status) [cm] [0|0]
+  optional int32 ultrasound_dist_2 = 2;
+  // Ultrasonic detection distance 3 (Ultrasound status) [cm] [0|0]
+  optional int32 ultrasound_dist_3 = 3;
+  // Ultrasonic detection distance 4 (Ultrasound status) [cm] [0|0]
+  optional int32 ultrasound_dist_4 = 4;
+  // Ultrasonic detection distance 5 (Ultrasound status) [cm] [0|0]
+  optional int32 ultrasound_dist_5 = 5;
+  // Ultrasonic detection distance 6 (Ultrasound status) [cm] [0|0]
+  optional int32 ultrasound_dist_6 = 6;
+  // Ultrasonic detection distance 7 (Ultrasound status) [cm] [0|0]
+  optional int32 ultrasound_dist_7 = 7;
+  // Ultrasonic detection distance 8 (Ultrasound status) [cm] [0|0]
+  optional int32 ultrasound_dist_8 = 8;
+}
+
+message Ecu_status_2_516 {
+// Report Message
+  // Percentage of battery remaining (BMS status) [%] [0|100]
+  optional int32 battery_remaining_capacity = 1;
+  // Current battery voltage (BMS status) [V] [0|80]
+  optional double battery_voltage = 2;
+  // Current battery current (BMS status) [A] [-60|60]
+  optional double battery_current = 3;
+  // Current battery temperature (BMS status) [¡É] [-40|110]
+  optional int32 battery_temperature = 4;
+}
+
+
+/*********************************************************
+* 以下Message为新增的A45控制消息及车辆状态消息定义
+*********************************************************/
+
+message A45_EPS_control_300 {
+// Control Message
+  enum Steer_angle_ctrl_reqType {
+    STEER_ANGLE_EN_CTRL_DISABLE = 0;
+    STEER_ANGLE_EN_CTRL_ENABLE = 1;
+  }
+  // steering angle enable bit(Command) [] [0|1]
+  optional Steer_angle_ctrl_reqType steer_angle_ctrl_req = 1;
+  // Current steering angle(Command) [radian] [-0.524|0.524]
+  optional double steer_angle_target = 2;
+}
+
+message A45_ACC_2_250 {
+// Control Message
+  enum ACC_cc_modeType {
+    ACC_2_OFF = 0;
+    ACC_2_Passive = 1;
+    ACC_2_Stand_By = 2;
+    ACC_2_Active_Control = 3;
+    ACC_2_Brake_Only = 4;
+    ACC_2_Override = 5;
+    ACC_2_Stand_Active = 6;
+    ACC_2_Stand_Wait = 7;
+    ACC_2_Temporary_Failure = 8;
+    ACC_2_Permanent_Failure = 9;
+  }
+  enum ACC_DecToStopReqType {
+    ACC_DecToStopReq_No_Request = 0;
+    ACC_DecToStopReq_Request = 1;
+  }
+  enum ACC_DriveoffReqType {
+    ACC_DriveoffReq_No_Request = 0;
+    ACC_DriveoffReq_Request = 1;
+  }
+
+  optional ACC_cc_modeType acc_cc_mode = 1;
+  optional ACC_DecToStopReqType acc_dectostopreq = 2;
+  optional ACC_DriveoffReqType acc_driveoffreq = 3;
+  optional double acc_axvcvaim = 4;
+  optional int32 acc_alivecounter = 5;
+  optional int32 acc_checksum = 6;
+  optional double acc_adtupperlimitaxvcv = 7;
+  optional double acc_adtlowerlimitaxvcv = 8;
+  optional double acc_accecomfuppervalue = 9;
+  optional double acc_accecomflowervalue = 10;
+}
+
+message A45_ACC_1_225 {
+// Control Message
+  enum ACC_mode_hmiType {
+    ACC_1_OFF = 0;
+    ACC_1_Passive = 1;
+    ACC_1_Stand_By = 2;
+    ACC_1_Active_Control = 3;
+    ACC_1_Brake_Only = 4;
+    ACC_1_Override = 5;
+    ACC_1_Standstill = 6;
+    ACC_1_Failure = 7;
+  }
+  enum ACC_TauGapSetType {
+    ACC_1_tauGap_0 = 0;
+    ACC_1_tauGap_1 = 1;
+    ACC_1_tauGap_2 = 2;
+    ACC_1_tauGap_3 = 3;
+    ACC_1_tauGap_4 = 4;
+    ACC_1_tauGap_5 = 5;
+    ACC_1_tauGap_6 = 6;
+    ACC_1_tauGap_7 = 7;
+  }
+
+  optional ACC_mode_hmiType acc_mode_hmi = 1;
+  optional ACC_TauGapSetType acc_taugapset = 2;
+  optional double acc_vsetdis = 3;
+  optional int32 acc_alivecounter = 4;
+  optional int32 acc_checksum = 5;
+}
+
+message A45_ACC_3_251 {
+// Control Message
+  optional int32 acc_alivecounter = 1;
+  optional int32 acc_checksum = 2;
+}
+
+
+message A45_EPS_status_1_230 {
+// Report Message
+  enum A45_EPS_WorkStatusType {
+    A45_EPS_WorkStatus_DISABLE = 0;
+    A45_EPS_WorkStatus_ENABLE = 1;
+  }
+  enum Steer_errType {
+    STEER_ERR_NOERR = 0;
+    STEER_ERR_STEER_MOTOR_ERR = 1;
+  }
+  enum Sensor_errType {
+    SENSOR_ERR_NOERR = 0;
+    SENSOR_ERR_STEER_SENSOR_ERR = 1;
+  }
+  // steering angle enable bit(Status) [] [0|1]
+  optional A45_EPS_WorkStatusType a45_eps_workstatus = 1;
+  optional double a45_steer_angle = 2;
+  // [] [0|1]
+  optional Steer_errType steer_err = 3;
+  // [] [0|1]
+  optional Sensor_errType sensor_err = 4;
+}
+
+message A45_ABS_1_311 {
+// Report Message
+  // Current speed (Steering status) [m/s] [0|0]
+  optional double speed = 1;
+  // Current chassis state (Chassis status) [] [0|255]
+  optional int32 chassis_sts = 2;
+  // Chassis error code (Chassis status) [] [0|65535]
+  optional int32 chassis_err = 3;
+}
+
+message A45_ESP_4_213 {
+// Report Message
+  // Current acc_speed (Steering status) [m/s2] [0|0]
+  optional double a45_acc_speed = 1;
+
+}
+
+message A45_TCU_1A0 {
+// Report Message
+  enum A45_Gear_stsType {
+    GEAR_STS_PARK = 0;
+    GEAR_STS_REVERSE = 7;
+    GEAR_STS_NEUTRAL = 6;
+    GEAR_STS_DRIVE = 5;
+    GEAR_STS_DRIVE1 = 4;
+    GEAR_STS_DRIVE2 = 9;
+    GEAR_STS_DRIVE3 = 10;
+    GEAR_STS_DRIVE4 = 11;
+    GEAR_STS_DRIVE5 = 12;
+    GEAR_STS_DRIVE6 = 13;
+    GEAR_STS_UNKNOWN = 1;
+    GEAR_STS_Fault = 15;
+  }
+  // PRND control(Status) [] [0|15]
+  optional A45_Gear_stsType a45_gear_sts = 1;
+}
+
+message Ch {
+  optional Control_command_115 control_command_115 = 1; // control message
+  optional Gear_command_114 gear_command_114 = 2; // control message
+  optional Brake_command_111 brake_command_111 = 3; // control message
+  optional Throttle_command_110 throttle_command_110 = 4; // control message
+  optional Turnsignal_command_113 turnsignal_command_113 = 5; // control message
+  optional Steer_command_112 steer_command_112 = 6; // control message
+  optional Brake_status__511 brake_status__511 = 7; // report message
+  optional Throttle_status__510 throttle_status__510 = 8; // report message
+  optional Turnsignal_status__513 turnsignal_status__513 = 9; // report message
+  optional Steer_status__512 steer_status__512 = 10; // report message
+  optional Ecu_status_1_515 ecu_status_1_515 = 11; // report message
+  optional Gear_status_514 gear_status_514 = 12; // report message
+  optional Ecu_status_3_517 ecu_status_3_517 = 13; // report message
+  optional Ecu_status_2_516 ecu_status_2_516 = 14; // report message
+  
+  /******* 新增A45的消息定义 ******/ 
+  optional A45_ESP_4_213 a45_esp_4_213 = 15; // report message
+  optional A45_EPS_control_300 a45_eps_control_300 = 16; // control message
+  optional A45_ACC_2_250 a45_acc_2_250 = 17; // control message
+  optional A45_ACC_1_225 a45_acc_1_225 = 18; // control message
+  optional A45_ACC_3_251 a45_acc_3_251 = 19; // control message
+  optional A45_EPS_status_1_230 a45_eps_status_1_230 = 20; // report message
+  optional A45_ABS_1_311 a45_abs_1_311 = 21; // report message
+  optional A45_TCU_1A0 a45_tcu_1_1a0 =22 ; // report message
+}
